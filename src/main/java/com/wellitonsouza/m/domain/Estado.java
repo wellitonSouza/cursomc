@@ -11,19 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Estado implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class Estado implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private	Integer id;
 	private String nome;
 	
 	@OneToMany(mappedBy="estado")
 	private List<Cidade> cidades = new ArrayList<>();
 	
 	public Estado() {
+		
 	}
 
 	public Estado(Integer id, String nome) {
@@ -80,5 +81,6 @@ public class Estado implements Serializable{
 			return false;
 		return true;
 	}
+	
 	
 }
