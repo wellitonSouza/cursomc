@@ -13,6 +13,7 @@ import com.wellitonsouza.m.domain.Cidade;
 import com.wellitonsouza.m.domain.Cliente;
 import com.wellitonsouza.m.domain.Endereco;
 import com.wellitonsouza.m.domain.Estado;
+import com.wellitonsouza.m.domain.ItemPedido;
 import com.wellitonsouza.m.domain.Pagamento;
 import com.wellitonsouza.m.domain.PagamentoComBoleto;
 import com.wellitonsouza.m.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.wellitonsouza.m.repositories.CidadeRepository;
 import com.wellitonsouza.m.repositories.ClienteRepository;
 import com.wellitonsouza.m.repositories.EnderecoRepository;
 import com.wellitonsouza.m.repositories.EstadoRepository;
+import com.wellitonsouza.m.repositories.ItemPedidoRepository;
 import com.wellitonsouza.m.repositories.PagamentoRepository;
 import com.wellitonsouza.m.repositories.PedidoRepository;
 import com.wellitonsouza.m.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursomApplication  implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -120,6 +125,19 @@ public class CursomApplication  implements CommandLineRunner{
 		
 		pedidoRepository.save(Arrays.asList(ped1,ped2));
 		pagamentoRepository.save(Arrays.asList(pagto1,pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2,  100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.save(Arrays.asList(ip1,ip2,ip3));
 	
 	}
 	
